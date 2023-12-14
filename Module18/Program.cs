@@ -1,9 +1,12 @@
-﻿namespace Module18
+﻿using YoutubeExplode;
+
+namespace Module18
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            #region Чтение и проверка параметров командной строки
             Config myConfig = new();
 
             if (args.Length != 2) 
@@ -19,9 +22,21 @@
             {
                 Console.WriteLine("Некорректно заданы параметры работы приложения");
             }
+            #endregion
+
+            Tester(myConfig);
 
             Console.ReadKey();
 
+        }
+
+        static async void Tester(Config myConfig)
+        {
+            #region Тестирую библиотеку YoutubeExplode
+            YoutubeClient youtubeClient = new YoutubeClient();
+            var video = await youtubeClient.Videos.GetAsync(myConfig.UrlVideo);
+
+            #endregion 
         }
     }
 }
