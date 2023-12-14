@@ -58,6 +58,8 @@ namespace Module18
 
         internal bool Validator()
         {
+            _res = true;
+
             if (string.IsNullOrEmpty(_urlVideo)) 
             {
                 Console.ForegroundColor = ConsoleColor.Red; 
@@ -81,14 +83,12 @@ namespace Module18
 
                 _downloadPath = myVideo;
                 Console.WriteLine($"Установлен каталог по-умолчанию {myVideo}\n");
-                _res = true;
             }
             else
             {
                 Console.WriteLine($"Каталог для сохранения видео {_downloadPath}\n");
             }
-
-            _res = true;
+           
             return _res;
         }
     }
