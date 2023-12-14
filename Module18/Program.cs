@@ -32,11 +32,21 @@ namespace Module18
 
         static async void Tester(Config myConfig)
         {
-            #region Тестирую библиотеку YoutubeExplode
+            #region Тестирую библиотеку YoutubeExplode 
+
+            #region Получение описания
             YoutubeClient youtubeClient = new YoutubeClient();
             var video = await youtubeClient.Videos.GetAsync(myConfig.UrlVideo);
+            Console.WriteLine($"Название - {video.Title}");
+            Console.WriteLine($"Описание - {video.Description}");
+            Console.WriteLine($"Продолжительность - {video.Duration}"); //По заданию не требуется
+            #endregion
 
-            #endregion 
+            #region Скачивание
+
+            #endregion
+
+            #endregion
         }
     }
 }
