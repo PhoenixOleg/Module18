@@ -1,4 +1,5 @@
 ﻿using YoutubeExplode;
+using YoutubeExplode.Converter;
 
 namespace Module18
 {
@@ -36,14 +37,16 @@ namespace Module18
 
             #region Получение описания
             YoutubeClient youtubeClient = new YoutubeClient();
-            var video = await youtubeClient.Videos.GetAsync(myConfig.UrlVideo);
-            Console.WriteLine($"Название - {video.Title}");
-            Console.WriteLine($"Описание - {video.Description}");
-            Console.WriteLine($"Продолжительность - {video.Duration}"); //По заданию не требуется
+            var videoInfo = await youtubeClient.Videos.GetAsync(myConfig.UrlVideo);
+            Console.WriteLine($"Название - {videoInfo.Title}");
+            Console.WriteLine($"Описание - {videoInfo.Description}");
+            Console.WriteLine($"Продолжительность - {videoInfo.Duration}"); //По заданию не требуется
             #endregion
 
             #region Скачивание
-
+            Console.WriteLine("Начинаем скачивать");
+            await youtubeClient.Videos.DownloadAsync(myConfig.UrlVideo, string.Concat(myConfig.DownloadPath, @"\video.mp4"));
+            Console.WriteLine("Закончили скачивать");
             #endregion
 
             #endregion
