@@ -1,5 +1,6 @@
 ﻿using YoutubeExplode;
 using YoutubeExplode.Converter;
+using YoutubeExplode.Videos.Streams;
 
 namespace Module18
 {
@@ -45,7 +46,17 @@ namespace Module18
 
             #region Скачивание
             Console.WriteLine("Начинаем скачивать");
-            await youtubeClient.Videos.DownloadAsync(myConfig.UrlVideo, string.Concat(myConfig.DownloadPath, @"\video.mp4"));
+            var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
+            var streamInfo = streamManifest.Streams; //Получил потоки
+            //var streamInfo = streamManifest.GetMuxedStreams().GetWithHighestBitrate(); // Получаю смешанный поток с максимальным битрейтом
+
+            // Получение актального потока
+            //var stream = await youtubeClient.Videos.Streams.GetAsync(streamInfo);
+            // Скачивание потока в файл
+            //await youtubeClient.Videos.Streams.DownloadAsync(streamInfo, string.Concat(myConfig.DownloadPath, @$"\video.{streamInfo.Container}"));
+
+            //Скачивание видео в файл. Походу выбираем сам лучшие потоки
+            //await youtubeClient.Videos.DownloadAsync(myConfig.UrlVideo, string.Concat(myConfig.DownloadPath, @"\video.mp4"));
             Console.WriteLine("Закончили скачивать");
             #endregion
 
