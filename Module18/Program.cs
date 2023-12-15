@@ -32,7 +32,7 @@ namespace Module18
 
         }
 
-        static async void Tester(Config myConfig)
+        static async void Tester(Config myConfig, IProgress<double>? progress = null)
         {
             #region Тестирую библиотеку YoutubeExplode 
 
@@ -64,7 +64,8 @@ namespace Module18
             var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
             
             //Собственно скачивание мишкированного потока
-            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\", GetSafeFilename(videoInfo.Title), ".mp4")).Build());
+            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\", GetSafeFilename(videoInfo.Title), ".mp4")).Build(),  progress);
+
 
             Console.WriteLine("Закончили скачивать");
             #endregion Скачивание
