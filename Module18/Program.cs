@@ -42,41 +42,34 @@ namespace Module18
             Console.WriteLine($"Название - {videoInfo.Title}");
             Console.WriteLine($"Описание - {videoInfo.Description}");
             Console.WriteLine($"Продолжительность - {videoInfo.Duration}"); //По заданию не требуется
-            #endregion
+            #endregion Получение описания
 
             #region Скачивание
             Console.WriteLine("Начинаем скачивать");
             var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
-            var streamInfo = streamManifest.Streams; //Получил потоки
-            //var streamInfo = streamManifest.GetMuxedStreams().GetWithHighestBitrate(); // Получаю смешанный поток с максимальным битрейтом
 
-            // Получение актального потока
-            //var stream = await youtubeClient.Videos.Streams.GetAsync(streamInfo);
-            // Скачивание потока в файл
-            //await youtubeClient.Videos.Streams.DownloadAsync(streamInfo, string.Concat(myConfig.DownloadPath, @$"\video.{streamInfo.Container}"));
-
-            //Скачивание видео в файл. Походу выбираем сам лучшие потоки
-            //await youtubeClient.Videos.DownloadAsync(myConfig.UrlVideo, string.Concat(myConfig.DownloadPath, @"\video.mp4"));
-
-
+            //Получаю лучший аудиопоток формата mp4
             var audioStreamInfo = streamManifest
             .GetAudioStreams()
             .Where(s => s.Container == Container.Mp4)
             .GetWithHighestBitrate();
 
+            //Получаю лучший видеопоток формата mp4
             var videoStreamInfo = streamManifest
             .GetVideoStreams()
             .Where(s => s.Container == Container.Mp4)
             .GetWithHighestVideoQuality();
 
+            //Микширование аудио и видео потоков через интерфейс
             var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
-            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\video.mp4")).Build());
-            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\" + GetSafeFilename(videoInfo.Title) + ".mp4")).Build());
+            
+            //Собственно скачивание мишкированного потока
+            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\", GetSafeFilename(videoInfo.Title), ".mp4")).Build());
 
             Console.WriteLine("Закончили скачивать");
-            #endregion
+            #endregion Скачивание
 
-            #endregion
+            #endregion Тестирую библиотеку YoutubeExplode 
         }
 
         public static string GetSafeFilename(string fileName)
