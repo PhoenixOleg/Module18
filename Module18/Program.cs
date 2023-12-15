@@ -57,10 +57,31 @@ namespace Module18
 
             //Скачивание видео в файл. Походу выбираем сам лучшие потоки
             //await youtubeClient.Videos.DownloadAsync(myConfig.UrlVideo, string.Concat(myConfig.DownloadPath, @"\video.mp4"));
+
+
+            var audioStreamInfo = streamManifest
+            .GetAudioStreams()
+            .Where(s => s.Container == Container.Mp4)
+            .GetWithHighestBitrate();
+
+            var videoStreamInfo = streamManifest
+            .GetVideoStreams()
+            .Where(s => s.Container == Container.Mp4)
+            .GetWithHighestVideoQuality();
+
+            var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
+            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\video.mp4")).Build());
+            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\" + GetSafeFilename(videoInfo.Title) + ".mp4")).Build());
+
             Console.WriteLine("Закончили скачивать");
             #endregion
 
             #endregion
+        }
+
+        public static string GetSafeFilename(string fileName)
+        {
+            return string.Join("_", fileName.Split(Path.GetInvalidFileNameChars()));
         }
     }
 }
