@@ -15,9 +15,9 @@ namespace Module18
             _command = command;
         }
 
-        public void RunCmd()
+        public void RunCmd(Config config)
         {
-            _command.Execute();
+            _command.Execute(config);
         }
     }
 }

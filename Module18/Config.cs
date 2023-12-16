@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Module18
 {
-    internal class Config
+    public class Config
     {
         private bool _res = false;
         private string _urlVideo;
