@@ -10,7 +10,7 @@ namespace Module18
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             #region Чтение и проверка параметров командной строки
             Config myConfig = new();
@@ -36,7 +36,7 @@ namespace Module18
             DecsriptionGetter descGetter = new DecsriptionGetter(myConfig.UrlVideo); //Экземпляр Ресивера для получения инфы о видео. Оюъявляю не через интерфейс, а класс,
                                                                                      //т. к. мне нужно вызывать получение названия видео 
             sender.SetCommand(new GetInfoCmd(descGetter));
-            sender.RunCmd();
+            await sender.RunCmd();
             #endregion
 
             string title = descGetter.Title; //Название видео
@@ -45,7 +45,8 @@ namespace Module18
             IReceiver downloader = new Downloader(myConfig, title);
 
             sender.SetCommand(new DownloadCmd(downloader));
-            sender.RunCmd();
+            await sender.RunCmd();
+            //var wait = Task.Run(sender.RunCmd);
             #endregion
 
             Console.WriteLine("Нажмите любую клавишу для выхода");

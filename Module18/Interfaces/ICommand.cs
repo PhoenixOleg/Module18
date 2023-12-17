@@ -10,6 +10,6 @@ namespace Module18.Interfaces
 {
     public interface ICommand
     {
-        public void CommandExecute();
+        public Task CommandExecute();
     }
 }

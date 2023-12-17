@@ -37,11 +37,11 @@ namespace Module18.Receivers
             #region Получение описания
             Console.WriteLine("Получаем описание");
             YoutubeClient youtubeClient = new();
-            var videoInfo = youtubeClient.Videos.GetAsync(_urlVideo);
+            var videoInfo = await youtubeClient.Videos.GetAsync(_urlVideo);
 
-            _title = videoInfo.Result.Title;
-            _description = videoInfo.Result.Description;
-            _duration = (TimeSpan)videoInfo.Result.Duration;
+            _title = videoInfo.Title;
+            _description = videoInfo.Description;
+            _duration = (TimeSpan)videoInfo.Duration;
 
             Console.WriteLine($"Название - {_title}");
             Console.WriteLine($"Описание - {_description}");

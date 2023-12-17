@@ -29,16 +29,16 @@ namespace Module18.Receivers
             Console.WriteLine("Начинаем скачивать");
 
             YoutubeClient youtubeClient = new();
-            var streamManifest = youtubeClient.Videos.Streams.GetManifestAsync(_myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
+            var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(_myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
 
             //Получаю лучший аудиопоток формата mp4
-            var audioStreamInfo = streamManifest.Result
+            var audioStreamInfo = streamManifest
             .GetAudioStreams()
             .Where(s => s.Container == Container.Mp4)
             .GetWithHighestBitrate();
 
             //Получаю лучший видеопоток формата mp4
-            var videoStreamInfo = streamManifest.Result
+            var videoStreamInfo = streamManifest
             .GetVideoStreams()
             .Where(s => s.Container == Container.Mp4)
             .GetWithHighestVideoQuality();
@@ -48,7 +48,6 @@ namespace Module18.Receivers
 
             //Собственно скачивание мишкированного потока
             await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(Path.Combine(_myConfig.DownloadPath, string.Concat(GetSafeFilename(_title), ".mp4"))).Build());
-
 
             Console.WriteLine("Закончили скачивать");
             #endregion Скачивание

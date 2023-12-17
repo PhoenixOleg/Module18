@@ -16,9 +16,9 @@ namespace Module18.SenderOfCmd
             _command = command;
         }
 
-        public void RunCmd()
+        public async Task /*void*/ RunCmd()
         {
-            _command.CommandExecute();
+           await _command.CommandExecute();
         }
     }
 }

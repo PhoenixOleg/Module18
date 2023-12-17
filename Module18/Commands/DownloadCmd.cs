@@ -16,9 +16,9 @@ namespace Module18.Commands
             receiver = downloader;
         }
 
-        public void CommandExecute()
+        public async Task CommandExecute()
         {
-            receiver.ActionReceiver();
+            await receiver.ActionReceiver();
         }
     }
 }
