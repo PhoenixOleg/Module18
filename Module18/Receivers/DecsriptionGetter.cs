@@ -1,4 +1,5 @@
 ﻿using Module18.Interfaces;
+using Module18.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace Module18.Receivers
             // Здесь будем получать описание
 
             #region Получение описания
-            Console.WriteLine("\nПолучаем описание");
+            WriteActionMarker.Write("Получаем описание");
+
             YoutubeClient youtubeClient = new();
             var videoInfo = await youtubeClient.Videos.GetAsync(_urlVideo);
 
@@ -36,7 +38,8 @@ namespace Module18.Receivers
             Console.WriteLine($"Название - {Title}");
             Console.WriteLine($"Описание - {_description}");
             Console.WriteLine($"Продолжительность - {_duration}"); //По заданию не требуется
-            Console.WriteLine("\nПолучили описание");
+
+            WriteActionMarker.Write("Получили описание");
             #endregion Получение описания
         }
     }

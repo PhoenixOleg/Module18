@@ -14,8 +14,8 @@ namespace Module18.Utils
     /// </summary>
     internal class ConsoleProgress : IProgress<double>
     {
-        private int _X; //Позиция курсора по X - столбец
-        private int _Y; //Позиция курсора по y - строка
+        private readonly int _X; //Позиция курсора по X - столбец
+        private readonly int _Y; //Позиция курсора по y - строка
         private readonly TextWriter _writer; //Экземпляр абстрактного класс для вывода текста.
                                              //В него надо передать стандартный вывод на консоль при инициализации экземпляра прогрессбара
 

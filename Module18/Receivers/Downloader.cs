@@ -27,7 +27,7 @@ namespace Module18.Receivers
             // Здесь будем скачивать видео
 
             #region Скачивание
-            Console.WriteLine("\nНачинаем скачивать");
+            WriteActionMarker.Write("Начинаем скачивать");
 
             YoutubeClient youtubeClient = new();
             var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(_myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
@@ -54,7 +54,7 @@ namespace Module18.Receivers
 
             progress.FinishIt();
 
-            Console.WriteLine($"\nЗакончили скачивать");
+            WriteActionMarker.Write("Закончили скачивать");
             #endregion Скачивание
         }
 
