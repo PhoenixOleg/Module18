@@ -26,68 +26,27 @@ namespace Module18
             }
             #endregion
 
-        //    Tester(myConfig);
+            Sender sender = new Sender(); //Сендер
 
-            Sender sender = new Sender();
-            DecsriptionGetter descGetter = new DecsriptionGetter(myConfig.UrlVideo);
-            
+            #region Вызываю команду получения инфы о видео
+            DecsriptionGetter descGetter = new DecsriptionGetter(myConfig.UrlVideo); //Экземпляр Ресивера для получения инфы о видео. Оюъявляю не через интерфейс, а класс,
+                                                                                     //т. к. мне нужно вызывать получение названия видео 
             sender.SetCommand(new GetInfoCmd(descGetter));
             sender.RunCmd();
+            #region
 
-            string title = descGetter.Title;
+            string title = descGetter.Title; //Название видео
 
+            #region Вызываю команду скачивания видео
             IReceiver downloader = new Downloader(myConfig, title);
 
             sender.SetCommand(new DownloadCmd(downloader));
             sender.RunCmd();
-           
+            #region
 
             Console.WriteLine("Нажмите любую клавишу для выхода");
             Console.ReadKey();
 
         }
-
-        //static async void Tester(Config myConfig, IProgress<double>? progress = null)
-        //{
-        //    #region Тестирую библиотеку YoutubeExplode 
-
-        //    #region Получение описания
-        //    YoutubeClient youtubeClient = new YoutubeClient();
-        //    var videoInfo = await youtubeClient.Videos.GetAsync(myConfig.UrlVideo);
-        //    Console.WriteLine($"Название - {videoInfo.Title}");
-        //    Console.WriteLine($"Описание - {videoInfo.Description}");
-        //    Console.WriteLine($"Продолжительность - {videoInfo.Duration}"); //По заданию не требуется
-        //    #endregion Получение описания
-
-        //    #region Скачивание
-        //    Console.WriteLine("Начинаем скачивать");
-        //    var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
-
-        //    //Получаю лучший аудиопоток формата mp4
-        //    var audioStreamInfo = streamManifest
-        //    .GetAudioStreams()
-        //    .Where(s => s.Container == Container.Mp4)
-        //    .GetWithHighestBitrate();
-
-        //    //Получаю лучший видеопоток формата mp4
-        //    var videoStreamInfo = streamManifest
-        //    .GetVideoStreams()
-        //    .Where(s => s.Container == Container.Mp4)
-        //    .GetWithHighestVideoQuality();
-
-        //    //Микширование аудио и видео потоков через интерфейс
-        //    var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
-            
-        //    //Собственно скачивание мишкированного потока
-        //    await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(myConfig.DownloadPath, @"\", GetSafeFilename(videoInfo.Title), ".mp4")).Build(),  progress);
-
-
-        //    Console.WriteLine("Закончили скачивать");
-        //    #endregion Скачивание
-
-        //    #endregion Тестирую библиотеку YoutubeExplode 
-        //}
-
-
     }
 }
