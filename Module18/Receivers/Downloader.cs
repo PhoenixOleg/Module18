@@ -60,7 +60,7 @@ namespace Module18.Receivers
             {
                 return string.Join("_", fileName.Split(Path.GetInvalidFileNameChars()));
             }
-            return null;
+            return "NoName";
         }
     }
 }
