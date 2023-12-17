@@ -47,7 +47,7 @@ namespace Module18.Receivers
             var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
 
             //Собственно скачивание мишкированного потока
-            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(string.Concat(_myConfig.DownloadPath, @"\", GetSafeFilename(_title), ".mp4")).Build());
+            await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(Path.Combine(_myConfig.DownloadPath, string.Concat(GetSafeFilename(_title), ".mp4"))).Build());
 
 
             Console.WriteLine("Закончили скачивать");
