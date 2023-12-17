@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Module18.Interfaces;
 
-namespace Module18
+namespace Module18.SenderOfCmd
 {
     class Sender
     {

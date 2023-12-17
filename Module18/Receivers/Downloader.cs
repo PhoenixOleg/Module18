@@ -1,77 +1,27 @@
-﻿using AngleSharp.Media;
+﻿using Module18.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YoutubeExplode;
 using YoutubeExplode.Converter;
-using YoutubeExplode.Videos;
 using YoutubeExplode.Videos.Streams;
+using YoutubeExplode;
 
-namespace Module18
+namespace Module18.Receivers
 {
-    public interface IReceiver
-    {
-        Task ActionReceiver();
-    }
-
-    public class DecsriptionGetter : IReceiver
-    {
-        private string _urlVideo;
-        
-        private string? _title;
-        private string? _description;
-        private TimeSpan? _duration;
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-        }
-
-        public DecsriptionGetter(string urlVideo)
-        { 
-            _urlVideo = urlVideo;
-        }
-
-        public async Task ActionReceiver()
-        {
-
-            // Здесь будем получать описание
-
-            #region Получение описания
-            Console.WriteLine("Получаем описание");
-            YoutubeClient youtubeClient = new();
-            var videoInfo = youtubeClient.Videos.GetAsync(_urlVideo);
-
-            _title = videoInfo.Result.Title;
-            _description = videoInfo.Result.Description;
-            _duration = (TimeSpan)videoInfo.Result.Duration;
-
-            Console.WriteLine($"Название - {_title}");
-            Console.WriteLine($"Описание - {_description}");
-            Console.WriteLine($"Продолжительность - {_duration}"); //По заданию не требуется
-            Console.WriteLine("Получили описание");
-            #endregion Получение описания
-        }
-    }
-
-    public class Downloader : IReceiver
+    internal class Downloader : IReceiver
     {
         Config _myConfig;
         string _title;
 
         public Downloader(Config myConfig, string title)
-        { 
+        {
             _myConfig = myConfig;
             _title = title;
         }
-        
-        public async Task ActionReceiver() 
+
+        public async Task ActionReceiver()
         {
             // Здесь будем скачивать видео
 

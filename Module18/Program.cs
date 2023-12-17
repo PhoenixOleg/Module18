@@ -1,4 +1,8 @@
-﻿using YoutubeExplode;
+﻿using Module18.Commands;
+using Module18.Interfaces;
+using Module18.Receivers;
+using Module18.SenderOfCmd;
+using YoutubeExplode;
 using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
 
@@ -33,7 +37,7 @@ namespace Module18
                                                                                      //т. к. мне нужно вызывать получение названия видео 
             sender.SetCommand(new GetInfoCmd(descGetter));
             sender.RunCmd();
-            #region
+            #endregion
 
             string title = descGetter.Title; //Название видео
 
@@ -42,7 +46,7 @@ namespace Module18
 
             sender.SetCommand(new DownloadCmd(downloader));
             sender.RunCmd();
-            #region
+            #endregion
 
             Console.WriteLine("Нажмите любую клавишу для выхода");
             Console.ReadKey();
