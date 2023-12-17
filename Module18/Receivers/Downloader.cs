@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using YoutubeExplode.Converter;
 using YoutubeExplode.Videos.Streams;
 using YoutubeExplode;
+using Module18.Utils;
 
 namespace Module18.Receivers
 {
@@ -26,7 +27,7 @@ namespace Module18.Receivers
             // Здесь будем скачивать видео
 
             #region Скачивание
-            Console.WriteLine("Начинаем скачивать");
+            Console.WriteLine("\nНачинаем скачивать");
 
             YoutubeClient youtubeClient = new();
             var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(_myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
@@ -46,13 +47,14 @@ namespace Module18.Receivers
             //Микширование аудио и видео потоков через интерфейс
             var streamInfos = new IStreamInfo[] { audioStreamInfo, videoStreamInfo };
 
-            //Собственно скачивание мишкированного потока
-            //await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(Path.Combine(_myConfig.DownloadPath, string.Concat(GetSafeFilename(_title), ".mp4"))).Build());
+            //Собственно скачивание мишкированного потока с прогресс баром
+            var progress = new ConsoleProgress(Console.Out);
 
-            IProgress<double> progress = new Progress<double>((perc) => Console.Write(perc)); 
             await youtubeClient.Videos.DownloadAsync(streamInfos, new ConversionRequestBuilder(Path.Combine(_myConfig.DownloadPath, string.Concat(GetSafeFilename(_title), ".mp4"))).Build(), progress);
 
-            Console.WriteLine("Закончили скачивать");
+            progress.FinishIt();
+
+            Console.WriteLine($"\nЗакончили скачивать");
             #endregion Скачивание
         }
 

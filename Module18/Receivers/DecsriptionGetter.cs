@@ -35,7 +35,7 @@ namespace Module18.Receivers
             // Здесь будем получать описание
 
             #region Получение описания
-            Console.WriteLine("Получаем описание");
+            Console.WriteLine("\nПолучаем описание");
             YoutubeClient youtubeClient = new();
             var videoInfo = await youtubeClient.Videos.GetAsync(_urlVideo);
 
@@ -46,7 +46,7 @@ namespace Module18.Receivers
             Console.WriteLine($"Название - {_title}");
             Console.WriteLine($"Описание - {_description}");
             Console.WriteLine($"Продолжительность - {_duration}"); //По заданию не требуется
-            Console.WriteLine("Получили описание");
+            Console.WriteLine("\nПолучили описание");
             #endregion Получение описания
         }
     }
