@@ -9,7 +9,7 @@ namespace Module18.Commands
 {
     internal class GetInfoCmd : ICommand
     {
-        IReceiver receiver;
+        private readonly IReceiver receiver;
 
         public GetInfoCmd(IReceiver decsriptionGetter)
         {

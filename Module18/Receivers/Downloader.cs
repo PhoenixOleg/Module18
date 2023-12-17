@@ -13,10 +13,10 @@ namespace Module18.Receivers
 {
     internal class Downloader : IReceiver
     {
-        Config _myConfig;
-        string _title;
+        private readonly Config _myConfig;
+        private readonly string? _title;
 
-        public Downloader(Config myConfig, string title)
+        public Downloader(Config myConfig, string? title)
         {
             _myConfig = myConfig;
             _title = title;
@@ -58,7 +58,7 @@ namespace Module18.Receivers
             #endregion Скачивание
         }
 
-        private static string GetSafeFilename(string fileName)
+        private static string GetSafeFilename(string? fileName)
         {
             if (!string.IsNullOrEmpty(fileName))
             {

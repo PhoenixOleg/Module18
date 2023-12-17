@@ -10,19 +10,9 @@ namespace Module18.Receivers
 {
     internal class DecsriptionGetter : IReceiver
     {
-        private string _urlVideo;
+        private readonly string _urlVideo;
 
-        private string? _title;
-        private string? _description;
-        private TimeSpan? _duration;
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-        }
+        public string? Title { get; private set; }
 
         public DecsriptionGetter(string urlVideo)
         {
@@ -39,11 +29,11 @@ namespace Module18.Receivers
             YoutubeClient youtubeClient = new();
             var videoInfo = await youtubeClient.Videos.GetAsync(_urlVideo);
 
-            _title = videoInfo.Title;
-            _description = videoInfo.Description;
-            _duration = (TimeSpan)videoInfo.Duration;
+            Title = videoInfo.Title;
+            string?_description = videoInfo.Description;
+            TimeSpan?_duration = videoInfo.Duration;
 
-            Console.WriteLine($"Название - {_title}");
+            Console.WriteLine($"Название - {Title}");
             Console.WriteLine($"Описание - {_description}");
             Console.WriteLine($"Продолжительность - {_duration}"); //По заданию не требуется
             Console.WriteLine("\nПолучили описание");

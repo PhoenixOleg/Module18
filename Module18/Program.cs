@@ -30,16 +30,16 @@ namespace Module18
             }
             #endregion
 
-            Sender sender = new Sender(); //Сендер
+            Sender sender = new(); //Сендер
 
             #region Вызываю команду получения инфы о видео
-            DecsriptionGetter descGetter = new DecsriptionGetter(myConfig.UrlVideo); //Экземпляр Ресивера для получения инфы о видео. Оюъявляю не через интерфейс, а класс,
+            DecsriptionGetter descGetter = new(myConfig.UrlVideo); //Экземпляр Ресивера для получения инфы о видео. Оюъявляю не через интерфейс, а класс,
                                                                                      //т. к. мне нужно вызывать получение названия видео 
             sender.SetCommand(new GetInfoCmd(descGetter));
             await sender.RunCmd();
             #endregion
 
-            string title = descGetter.Title; //Название видео
+            string? title = descGetter.Title; //Название видео
 
             #region Вызываю команду скачивания видео
             IReceiver downloader = new Downloader(myConfig, title);

@@ -9,7 +9,7 @@ namespace Module18.Commands
 {
     internal class DownloadCmd : ICommand
     {
-        IReceiver receiver;
+        private readonly IReceiver receiver;
 
         public DownloadCmd(IReceiver downloader)
         {

@@ -9,7 +9,7 @@ namespace Module18.SenderOfCmd
 {
     class Sender
     {
-        ICommand _command;
+        private ICommand _command;
 
         public void SetCommand(ICommand command)
         {

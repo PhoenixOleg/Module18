@@ -12,32 +12,26 @@ namespace Module18
         private string _urlVideo;
         private string _downloadPath;
 
-        internal string UrlVideo 
-        { 
-          get
-            {
-                return _urlVideo;
-            }
-          set
+        internal string UrlVideo
+        {
+            get => _urlVideo;
+            set
             {
                 _urlVideo = value;
                 _res = false;
             }
         }
 
-        internal string DownloadPath 
-        { 
-            get
-            {
-                return _downloadPath;
-            }
+        internal string DownloadPath
+        {
+            get => _downloadPath;
             set
             {
                 _downloadPath = value;
                 _res = false;
             }
         }
-        
+
         internal bool ValidatePassed 
         {
             get 
@@ -46,7 +40,11 @@ namespace Module18
             }
         }
 
-        internal Config() { }
+        internal Config() 
+        {
+            _urlVideo = string.Empty;
+            _downloadPath = string.Empty;
+        }
 
         internal Config(string UrlVideo, string DownloadPath) 
         {
