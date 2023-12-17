@@ -10,21 +10,37 @@ namespace Module18
 {
     public interface ICommand
     {
-        public void Execute(Config config);
+        public void CommandExecute();
     }
 
-    class Commands : ICommand
+    class GetInfoCmd : ICommand
     {
-        readonly IReceiver receiver;
+        IReceiver receiver;
 
-        public Commands(IReceiver receiver)
+        public GetInfoCmd(IReceiver decsriptionGetter)
         {
-            this.receiver = receiver;
+            receiver = decsriptionGetter;
         }
 
-        public void Execute(Config config)
+        public void CommandExecute()
         {
-            receiver.Action(config);
+            receiver.ActionReceiver();
+        }
+    }
+
+
+    class DownloadCmd : ICommand
+    {
+        IReceiver receiver;
+
+        public DownloadCmd(IReceiver downloader)
+        {
+            receiver = downloader;
+        }
+
+        public void CommandExecute()
+        {
+            receiver.ActionReceiver();
         }
     }
 }

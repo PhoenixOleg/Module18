@@ -28,6 +28,21 @@ namespace Module18
 
         //    Tester(myConfig);
 
+            Sender sender = new Sender();
+            DecsriptionGetter descGetter = new DecsriptionGetter(myConfig.UrlVideo);
+            
+            sender.SetCommand(new GetInfoCmd(descGetter));
+            sender.RunCmd();
+
+            string title = descGetter.Title;
+
+            IReceiver downloader = new Downloader(myConfig, title);
+
+            sender.SetCommand(new DownloadCmd(downloader));
+            sender.RunCmd();
+           
+
+            Console.WriteLine("Нажмите любую клавишу для выхода");
             Console.ReadKey();
 
         }
