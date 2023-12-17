@@ -46,7 +46,6 @@ namespace Module18
 
             sender.SetCommand(new DownloadCmd(downloader));
             await sender.RunCmd();
-            //var wait = Task.Run(sender.RunCmd);
             #endregion
 
             Console.WriteLine("Нажмите любую клавишу для выхода");
