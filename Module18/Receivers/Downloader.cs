@@ -11,6 +11,9 @@ using Module18.Utils;
 
 namespace Module18.Receivers
 {
+    /// <summary>
+    /// Класс-получатель команды на скачивание
+    /// </summary>
     internal class Downloader : IReceiver
     {
         private readonly Config _myConfig;
@@ -22,13 +25,18 @@ namespace Module18.Receivers
             _title = title;
         }
 
+        /// <summary>
+        /// Метод скачивания видео
+        /// </summary>
         public async Task ActionReceiver()
         {
             // Здесь будем скачивать видео
 
             #region Скачивание
-            WriteActionMarker.Write("Начинаем скачивать");
+            WriteActionMarker.Action("Начинаем скачивать");
 
+            try
+            { 
             YoutubeClient youtubeClient = new();
             var streamManifest = await youtubeClient.Videos.Streams.GetManifestAsync(_myConfig.UrlVideo); //Запрашиваю все доступные потоки (аудио и видео)
 
@@ -54,7 +62,12 @@ namespace Module18.Receivers
 
             progress.FinishIt();
 
-            WriteActionMarker.Write("Закончили скачивать");
+            WriteActionMarker.Action("Закончили скачивать");
+            }
+            catch (Exception ex)
+            {
+                WriteActionMarker.Error(ex.Message);
+            }
             #endregion Скачивание
         }
 

@@ -6,12 +6,32 @@ using System.Threading.Tasks;
 
 namespace Module18.Utils
 {
+    /// <summary>
+    /// Класс для вывода цветных сообщений
+    /// </summary>
     internal static class WriteActionMarker
     {
-        internal static void Write(string text)
+        internal static void Action(string text)
         {
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine($"\n{text}");
+            Show(text);
+        }
+        
+        internal static void Error(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Show(text);
+        }
+
+        internal static void Info(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Show(text);
+        }
+
+        private static void Show (string text) 
+        {
+            Console.WriteLine($"\n{text}\n");
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

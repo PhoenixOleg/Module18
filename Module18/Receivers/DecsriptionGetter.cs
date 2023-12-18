@@ -9,6 +9,9 @@ using YoutubeExplode;
 
 namespace Module18.Receivers
 {
+    /// <summary>
+    /// Класс-получатель команды получения описания видео
+    /// </summary>
     internal class DecsriptionGetter : IReceiver
     {
         private readonly string _urlVideo;
@@ -20,14 +23,18 @@ namespace Module18.Receivers
             _urlVideo = urlVideo;
         }
 
+        /// <summary>
+        /// Метод получения описания видео
+        /// </summary>
         public async Task ActionReceiver()
         {
 
             // Здесь будем получать описание
 
             #region Получение описания
-            WriteActionMarker.Write("Получаем описание");
-
+            WriteActionMarker.Action("Получаем описание");
+            try
+            { 
             YoutubeClient youtubeClient = new();
             var videoInfo = await youtubeClient.Videos.GetAsync(_urlVideo);
 
@@ -39,7 +46,12 @@ namespace Module18.Receivers
             Console.WriteLine($"Описание - {_description}");
             Console.WriteLine($"Продолжительность - {_duration}"); //По заданию не требуется
 
-            WriteActionMarker.Write("Получили описание");
+            WriteActionMarker.Action("Получили описание");
+            }
+            catch ( Exception ex )
+            {
+                WriteActionMarker.Error(ex.Message);
+            }
             #endregion Получение описания
         }
     }

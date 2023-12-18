@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Module18.Commands
 {
+    /// <summary>
+    /// Класс-команда на получение информации о видео
+    /// </summary>
     internal class GetInfoCmd : ICommand
     {
         private readonly IReceiver receiver;

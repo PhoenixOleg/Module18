@@ -12,6 +12,9 @@ using YoutubeExplode.Videos.Streams;
 
 namespace Module18.Interfaces
 {
+    /// <summary>
+    /// Интерфейс получателя
+    /// </summary>
     public interface IReceiver
     {
         Task ActionReceiver();

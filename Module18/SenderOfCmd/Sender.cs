@@ -7,6 +7,9 @@ using Module18.Interfaces;
 
 namespace Module18.SenderOfCmd
 {
+    /// <summary>
+    /// Класс-отправитель. Через него пользователь взаимодействует с исполнительным устройством
+    /// </summary>
     class Sender
     {
         private ICommand _command;

@@ -58,6 +58,7 @@ namespace Module18.Utils
         public void FinishIt()
         {
             Report(1);
+            Console.WriteLine();
         }
 
         /// <summary>

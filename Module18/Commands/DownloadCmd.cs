@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Module18.Commands
 {
+    /// <summary>
+    /// Класс-команда на скачивание видео
+    /// </summary>
     internal class DownloadCmd : ICommand
     {
         private readonly IReceiver receiver;
